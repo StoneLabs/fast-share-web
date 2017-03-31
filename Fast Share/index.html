@@ -15,6 +15,8 @@
     </center>
 
     <script type="text/javascript">
+        var file_key = "UNKNOWN";
+
         function status(current)
         {
             $("#status").text("STATUS: " + current);
@@ -32,16 +34,31 @@
         {
             $.ajax({
                     type: "POST",
-                    url: "/interface/web/check.php",
+                    url: "/interface/web/getUploadStatus.php",
+                    data: { key: file_key },
 
+                    beforeSend: function () {
+                        status("checking upload status...");
+                    },
                     success: function (html) {
+                        var response = JSON.parse(html);
+                        if (response.success == false)
+                            status("internal error - " + response.error);
+                        else
+                        {
+                            status("received upload status - " + response.data);
+                            if (response.data == false)
+                            {
+                                status("waiting for upload...");
+                                setTimeout(checkStatus, 10000);
+                            }
+                        }
                     },
                     error: function () {
                         status("internal error");
                         return;
                     }
             });
-            setTimeout(checkStatus, 3000);
         }
 
         status("waiting for file id");
@@ -55,8 +72,11 @@
                     status("internal error - " + response.error);
                 else
                 {
-                    setQR(response.data);
-                    status("done! //TODO wait for upload!")
+                    file_key = response.data;
+
+                    setQR(file_key);
+                    status("received key - " + file_key);
+                    setTimeout(checkStatus, 10000);
                 }
             },
             error: function () {

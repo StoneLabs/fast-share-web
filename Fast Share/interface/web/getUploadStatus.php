@@ -3,11 +3,18 @@ require_once "../nocch.php";
 require_once "../iflnk.php";
 require_once "../dbcfg.php";
 
-$qry = 'CALL getFileID();'; //Get user data
+if (!isset($_POST['key'])) //Check for post arguments
+    retJSON(false, "Invalid arguments");
+
+$key = $_POST['key'];
+
+$qry = 'CALL getUploadStatus(?);'; //Get user data
 $res = $link->prepare($qry);
 if ($res == false)
     retJSON(false, "Mysqli querry returned in ERROR state\n".$link->errno.'-'.$link->error);
 
+
+$res->bind_param('s', $key);
 $res->execute();
 $res = $res->get_result();
 
@@ -17,4 +24,5 @@ if( $nrow != 1 ) //Check result
 
 $row = $res->fetch_assoc();
 
-retJSON(true, "", $row["KEY"]);
+retJSON(true, "", $row["RESULT"]);
+

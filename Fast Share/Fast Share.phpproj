@@ -31,5 +31,6 @@
     <Compile Include="interface\iflnk.php" />
     <Compile Include="interface\web\getID.php" />
     <Compile Include="interface\nocch.php" />
+    <Compile Include="interface\web\getUploadStatus.php" />
   </ItemGroup>
 </Project>
