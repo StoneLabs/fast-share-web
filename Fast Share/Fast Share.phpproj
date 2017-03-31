@@ -16,12 +16,20 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="interface\web\" />
     <Folder Include="js\" />
+    <Folder Include="interface\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html.css" />
     <Content Include="index.html" />
     <Content Include="js\jquery-dev.js" />
     <Content Include="js\qrcode.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="interface\dbcfg.php" />
+    <Compile Include="interface\iflnk.php" />
+    <Compile Include="interface\web\getID.php" />
+    <Compile Include="interface\nocch.php" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
     <title>FAST SHARE TEST</title>
     <meta charset="UTF-8">
@@ -9,16 +9,61 @@
     <script src="js/qrcode.js"></script>
 </head>
 <body>
-    <input id="input" type="text" />
-    <div id="qrcode"></div>
+    <center>
+        <div id="qrcode"></div>
+        <pre id="status">PLEASE ENABLE JAVASCRIPT</pre>
+    </center>
 
     <script type="text/javascript">
-        function setQR()
+        function status(current)
         {
-            $("#qrcode").html("");
-            new QRCode(document.getElementById("qrcode"), $("input").val());
+            $("#status").text("STATUS: " + current);
+            console.log("STATUS: " + current);
         }
-        $("#input").on("change keyup paste", setQR);
+
+        function setQR(code) //SET QR-CODE
+        {
+            console.log("QR.CODE: " + code);
+            $("#qrcode").html("");
+            new QRCode(document.getElementById("qrcode"), code);
+        }
+        
+        function checkStatus()
+        {
+            $.ajax({
+                    type: "POST",
+                    url: "/interface/web/check.php",
+
+                    success: function (html) {
+                    },
+                    error: function () {
+                        status("internal error");
+                        return;
+                    }
+            });
+            setTimeout(checkStatus, 3000);
+        }
+
+        status("waiting for file id");
+        $.ajax({ //Request file id
+            type: "POST",
+            url: "/interface/web/getID.php",
+
+            success: function (html) {
+                var response = JSON.parse(html);
+                if (response.success == false)
+                    status("internal error - " + response.error);
+                else
+                {
+                    setQR(response.data);
+                    status("done! //TODO wait for upload!")
+                }
+            },
+            error: function () {
+                status("internal error");
+                return;
+            }
+        });
     </script>
 </body>
 </html>
