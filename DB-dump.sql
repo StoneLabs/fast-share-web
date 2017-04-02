@@ -27,10 +27,11 @@ CREATE TABLE `uploads` (
   `KEY` varchar(32) NOT NULL,
   `UPLOADED` int(1) NOT NULL DEFAULT '0',
   `REQUEST` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FILE_NAME` varchar(260) NOT NULL DEFAULT 'NO_UPLOAD',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`),
   UNIQUE KEY `KEY_UNIQUE` (`KEY`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,6 @@ CREATE TABLE `uploads` (
 
 LOCK TABLES `uploads` WRITE;
 /*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
-INSERT INTO `uploads` VALUES (53,'d82c8d1619ad8176d665453cfb2e55f0',0,'2017-03-31 18:49:11'),(54,'a684eceee76fc522773286a895bc8436',0,'2017-03-31 18:49:23'),(55,'b53b3a3d6ab90ce0268229151c9bde11',0,'2017-03-31 18:52:17'),(56,'9f61408e3afb633e50cdf1b20de6f466',0,'2017-03-31 18:56:48'),(57,'72b32a1f754ba1c09b3695e0cb6cde7f',0,'2017-03-31 19:21:58'),(58,'66f041e16a60928b05a7e228a89c3799',0,'2017-03-31 19:22:19'),(59,'093f65e080a295f8076b1c5722a46aa2',0,'2017-03-31 19:23:03'),(60,'072b030ba126b2f4b2374f342be9ed44',0,'2017-03-31 19:28:53'),(61,'7f39f8317fbdb1988ef4c628eba02591',0,'2017-03-31 19:30:19');
 /*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,6 +87,29 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `setUploadStatus` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`ni18061_5sql1`@`%` PROCEDURE `setUploadStatus`(IN fileKey VARCHAR(32), IN fileName VARCHAR(260))
+BEGIN
+	UPDATE `ni18061_5sql1`.`uploads`
+	SET
+	`UPLOADED` = 1,
+	`FILE_NAME` = fileName
+	WHERE `KEY` = fileKey;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -97,4 +120,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-31 21:31:27
+-- Dump completed on 2017-04-02 15:35:04

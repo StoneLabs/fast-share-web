@@ -8,3 +8,8 @@ function retJSON($success, $error, $data)
 
     exit(json_encode($ret));
 }
+function retJSONRC($success, $error, $data)
+{
+    http_response_code($success ? 200 : 400);
+    retJSON($success, $error, $data);
+}

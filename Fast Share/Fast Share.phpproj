@@ -16,9 +16,11 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="interface\app\" />
     <Folder Include="interface\web\" />
     <Folder Include="js\" />
     <Folder Include="interface\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html.css" />
@@ -27,6 +29,7 @@
     <Content Include="js\qrcode.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="interface\app\upload.php" />
     <Compile Include="interface\dbcfg.php" />
     <Compile Include="interface\iflnk.php" />
     <Compile Include="interface\web\getID.php" />
