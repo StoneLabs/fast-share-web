@@ -32,6 +32,7 @@
     <Compile Include="interface\app\upload.php" />
     <Compile Include="interface\dbcfg.php" />
     <Compile Include="interface\iflnk.php" />
+    <Compile Include="interface\web\download.php" />
     <Compile Include="interface\web\getID.php" />
     <Compile Include="interface\nocch.php" />
     <Compile Include="interface\web\getUploadStatus.php" />

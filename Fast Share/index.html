@@ -52,6 +52,8 @@
                                 status("waiting for upload...");
                                 setTimeout(checkStatus, 10000);
                             }
+                            else
+                                window.location.href = "/interface/web/download.php?key=" + file_key;
                         }
                     },
                     error: function () {
