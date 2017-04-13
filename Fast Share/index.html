@@ -1,24 +1,41 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>FAST SHARE TEST</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
 
+    <title>FAST SHARE TEST</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/fa/font-awesome.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="index.html.css">
 
     <script src="js/jquery-dev.js"></script>
     <script src="js/qrcode.js"></script>
 </head>
 <body>
-    <center>
-        <div id="qrcode"></div>
-        <pre id="status">PLEASE ENABLE JAVASCRIPT</pre>
-    </center>
+    <header>
+        <h1 class="text-center">FAST SHARE</h1>
+    </header>
+    <section>
+        <p class="text-center">
+            Share your files within seconds! <br>
+            Scan the link below using the fast share app.
+        </p>
+        <br />
+        
+        <div class="fill-width">
+            <div id="qrcode"></div>
+            <p id="status" class="text-center">PLEASE ENABLE JAVASCRIPT</p>
+        </div>
+
+    </section>
 
     <script type="text/javascript">
         var file_key = "UNKNOWN";
 
-        function status(current)
-        {
+        function status(current) {
             $("#status").text("STATUS: " + current);
             console.log("STATUS: " + current);
         }
@@ -27,39 +44,40 @@
         {
             console.log("QR.CODE: " + code);
             $("#qrcode").html("");
-            new QRCode(document.getElementById("qrcode"), code);
+            new QRCode(document.getElementById("qrcode"), {
+                     text : code,
+                     width: 256,
+                     height: 256
+                });
         }
-        
-        function checkStatus()
-        {
-            $.ajax({
-                    type: "POST",
-                    url: "/interface/web/getUploadStatus.php",
-                    data: { key: file_key },
 
-                    beforeSend: function () {
-                        status("checking upload status...");
-                    },
-                    success: function (html) {
-                        var response = JSON.parse(html);
-                        if (response.success == false)
-                            status("internal error - " + response.error);
-                        else
-                        {
-                            status("received upload status - " + response.data);
-                            if (response.data == false)
-                            {
-                                status("waiting for upload...");
-                                setTimeout(checkStatus, 10000);
-                            }
-                            else
-                                window.location.href = "/interface/web/download.php?key=" + file_key;
+        function checkStatus() {
+            $.ajax({
+                type: "POST",
+                url: "/interface/web/getUploadStatus.php",
+                data: { key: file_key },
+
+                beforeSend: function () {
+                    status("checking upload status...");
+                },
+                success: function (html) {
+                    var response = JSON.parse(html);
+                    if (response.success == false)
+                        status("internal error - " + response.error);
+                    else {
+                        status("received upload status - " + response.data);
+                        if (response.data == false) {
+                            status("waiting for upload...");
+                            setTimeout(checkStatus, 10000);
                         }
-                    },
-                    error: function () {
-                        status("internal error");
-                        return;
+                        else
+                            window.location.href = "/interface/web/download.php?key=" + file_key;
                     }
+                },
+                error: function () {
+                    status("internal error");
+                    return;
+                }
             });
         }
 
@@ -72,8 +90,7 @@
                 var response = JSON.parse(html);
                 if (response.success == false)
                     status("internal error - " + response.error);
-                else
-                {
+                else {
                     file_key = response.data;
 
                     setQR(file_key);

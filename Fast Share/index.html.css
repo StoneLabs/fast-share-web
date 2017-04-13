@@ -1,9 +1,48 @@
-#qrcode
+.center
 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+.text-center
+{
+    text-align: center;
+}
 
+.fill-width
+{
+    width: 100vw;
+}
+
+.fill-height
+{
+    height: 100vw;
 }
 
 #status
 {
     font-size: 40px;
+}
+
+#qrcode {
+    width: 50%;
+    margin: 0 auto;
+
+    width: 256px;
+    height: 256px;
+}
+
+body {
+	margin: 0; 
+	padding: 0; 
+	
+    background: url(./img/back_beta.png) no-repeat bottom right fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+p, h1, h2, h3, h4, h5, h6, i {
+    font-family: "Arial Black", Gadget, sans-serif;
 }

@@ -16,13 +16,27 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="css\fa\" />
+    <Folder Include="css\fa\fonts\" />
+    <Folder Include="img\" />
     <Folder Include="interface\app\" />
     <Folder Include="interface\web\" />
     <Folder Include="js\" />
     <Folder Include="interface\" />
     <Folder Include="images\" />
+    <Folder Include="css\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\animate.css" />
+    <Content Include="css\fa\font-awesome.css" />
+    <Content Include="css\fa\font-awesome.min.css" />
+    <Content Include="css\fa\fonts\fontawesome-webfont.eot" />
+    <Content Include="css\fa\fonts\fontawesome-webfont.svg" />
+    <Content Include="css\fa\fonts\fontawesome-webfont.ttf" />
+    <Content Include="css\fa\fonts\fontawesome-webfont.woff" />
+    <Content Include="css\fa\fonts\fontawesome-webfont.woff2" />
+    <Content Include="css\fa\fonts\FontAwesome.otf" />
+    <Content Include="img\back_beta.png" />
     <Content Include="index.html.css" />
     <Content Include="index.html" />
     <Content Include="js\jquery-dev.js" />
