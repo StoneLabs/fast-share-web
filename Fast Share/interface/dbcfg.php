@@ -1,5 +1,5 @@
 <?php
-
+// Dont bother, server is offline and passwords are invalid.
 define ("DB_HOST", "ni18061_5.vweb10.nitrado.net"); // set database host
 
 define ("DB_USER", "ni18061_5sql1"); // set database user
